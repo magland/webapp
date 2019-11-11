@@ -9,9 +9,9 @@ RUN ln -s pip3 /usr/bin/pip
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-tk
 
 #########################################
-### Node and yarn
+### Node 12 and yarn
 RUN apt-get update && apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get update && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get update && apt-get install -y nodejs
 RUN npm install -g yarn
 
 #########################################
@@ -30,15 +30,22 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN apt-get install -y locales && locale-gen en_US.UTF-8
 
 #########################################
-### Install ephys_viz
-RUN pip install ephys_viz==0.9.0
+### Install reactopya
+RUN pip install reactopya==0.10.0
 
-#########################################
-### Install ccm_widgets
-RUN pip install ccm_widgets==0.4.10
+RUN mkdir /src
 
-COPY main.py /working/main.py
+### Clone and install ccm_widgets
+RUN git clone https://github.com/flatironinstitute/ccm_widgets /src/ccm_widgets \
+    && cd /src/ccm_widgets \
+    && git checkout a87b93fcc06ddb32b9382123942ff13088f9ee46
+
+WORKDIR /src/ccm_widgets
+RUN reactopya install-jupyter
+RUN pip install ipywidgets
+
+COPY webapp /webapp
 
 EXPOSE 8080
 
-CMD ["python", "/working/main.py"]
+CMD reactopya-server /webapp/ccm_widgets.json --port 8080

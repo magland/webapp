@@ -7,4 +7,4 @@ docker push magland/webapp
 To run
 export LISTEN_PORT=8080
 export TMP_DIR=$PWD/some_tmp
-docker run -p $LISTEN_PORT:8080 -v $TMP_DIR:/tmp -it magland/webapp
+docker run -p $LISTEN_PORT:8080 -v $TMP_DIR:/tmp -e HOME=/tmp -it magland/webapp
