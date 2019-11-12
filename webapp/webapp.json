@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "name": "root",
+            "pyFile": "root.py"
+        },
+        {
+            "name": "clustering",
+            "pyFile": "clustering.py"
+        },
+        {
+            "name": "explore",
+            "pyFile": "explore.py"
+        }
+    ]
+}

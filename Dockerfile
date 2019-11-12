@@ -29,23 +29,35 @@ RUN rm /usr/bin/python && ln -s python3 /usr/bin/python && rm /usr/bin/pip && ln
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN apt-get install -y locales && locale-gen en_US.UTF-8
 
+# Pre-install some python libraries
+RUN pip install vtk
+RUN pip install sklearn
+
 #########################################
 ### Install reactopya
-RUN pip install reactopya==0.10.0
+RUN pip install reactopya==0.10.3
 
 RUN mkdir /src
 
 ### Clone and install ccm_widgets
 RUN git clone https://github.com/flatironinstitute/ccm_widgets /src/ccm_widgets \
     && cd /src/ccm_widgets \
-    && git checkout a87b93fcc06ddb32b9382123942ff13088f9ee46
+    && git checkout cdc137488c2df83f792f8a3984777b6093d8736b
 
 WORKDIR /src/ccm_widgets
-RUN reactopya install-jupyter
-RUN pip install ipywidgets
+RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
+# RUN pip install ipywidgets
+
+### Clone and install kachery_widgets
+RUN git clone https://github.com/flatironinstitute/kachery /src/kachery \
+    && cd /src/kachery \
+    && git checkout cf9d88b2ace8d1f2087336c372b63bffb5df4dc5
+
+WORKDIR /src/kachery/kachery_widgets
+RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
 
 COPY webapp /webapp
 
 EXPOSE 8080
 
-CMD reactopya-server /webapp/ccm_widgets.json --port 8080
+CMD reactopya-server /webapp/webapp.json --port 8080
