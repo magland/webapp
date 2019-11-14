@@ -29,32 +29,42 @@ RUN rm /usr/bin/python && ln -s python3 /usr/bin/python && rm /usr/bin/pip && ln
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN apt-get install -y locales && locale-gen en_US.UTF-8
 
-# Pre-install some python libraries
-RUN pip install vtk
-RUN pip install sklearn
+# Pre-install some python packages
+RUN pip install jupyter scipy vtk imageio imageio-ffmpeg sklearn h5py pandas ipywidgets
+RUN pip install mountaintools
+RUN pip install isosplit5 rlcluster
+RUN pip install kachery==0.3.5
+RUN pip install h5_to_json==0.1.5
 
 #########################################
 ### Install reactopya
-RUN pip install reactopya==0.10.3
-
-RUN mkdir /src
+RUN git clone https://github.com/flatironinstitute/reactopya /src/reactopya \
+    && cd /src/reactopya \
+    && git checkout 38f77b35ab3a9fcc190bd8f2f7182b03786615eb
+WORKDIR /src/reactopya
+RUN pip install -e .
+RUN cd reactopya/reactopya_server && yarn install && yarn build && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf /tmp/* && yarn cache clean
 
 ### Clone and install ccm_widgets
 RUN git clone https://github.com/flatironinstitute/ccm_widgets /src/ccm_widgets \
     && cd /src/ccm_widgets \
     && git checkout cdc137488c2df83f792f8a3984777b6093d8736b
-
 WORKDIR /src/ccm_widgets
-RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
-# RUN pip install ipywidgets
+RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf /tmp/* && yarn cache clean
 
 ### Clone and install kachery_widgets
 RUN git clone https://github.com/flatironinstitute/kachery /src/kachery \
     && cd /src/kachery \
-    && git checkout cf9d88b2ace8d1f2087336c372b63bffb5df4dc5
-
+    && git checkout 489811741e922de9c3270f9b23e1e3bccb122f17
 WORKDIR /src/kachery/kachery_widgets
-RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
+RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf /tmp/* && yarn cache clean
+
+### Clone and install ephys_viz
+RUN git clone https://github.com/flatironinstitute/ephys-viz /src/ephys-viz \
+    && cd /src/ephys-viz \
+    && git checkout 64ef5d3553d40e186c8c27800e968fea152bda39
+WORKDIR /src/ephys-viz
+RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf /tmp/* && yarn cache clean
 
 COPY webapp /webapp
 

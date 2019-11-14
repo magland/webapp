@@ -11,6 +11,10 @@
         {
             "name": "explore",
             "pyFile": "explore.py"
+        },
+        {
+            "name": "timeseries",
+            "pyFile": "timeseries.py"
         }
     ]
 }
