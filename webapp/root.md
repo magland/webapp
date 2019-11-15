@@ -18,6 +18,8 @@ See also [this presentation](https://docs.google.com/presentation/d/10bDfwBVeOuv
 
 View raw electrophysiology data via lazy-load. See [ephys-viz](https://github.com/flatironinstitute/ephys-viz), [SpikeInterface](https://github.com/spikeinterface), [h5_to_json](https://github.com/flatironinstitute/h5_to_json)
 
+**Note**: please allow some time for initial download (TODO: more helpful progress bar during download)
+
 * [synth_magland.noise10_K10_C4](app/timeseries?path=sha1dir://fb52d510d2543634e247e0d2d1d4390be9ed9e20.synth_magland/datasets_noise10_K10_C4/001_synth)
 
 * [paired_kampff.2014_11_25_PAIR_3_0](app/timeseries?path=sha1dir://5426bea8dd11a15c73626bb679fc5a8227bc3d42.paired_kampff.2014_11_25_PAIR_3_0)

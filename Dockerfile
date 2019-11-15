@@ -62,7 +62,7 @@ RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf
 ### Clone and install ephys_viz
 RUN git clone https://github.com/flatironinstitute/ephys-viz /src/ephys-viz \
     && cd /src/ephys-viz \
-    && git checkout 64ef5d3553d40e186c8c27800e968fea152bda39
+    && git checkout 235b88183b548cf43d6ef5632e233859755f2d7b
 WORKDIR /src/ephys-viz
 RUN reactopya install && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf /tmp/* && yarn cache clean
 
