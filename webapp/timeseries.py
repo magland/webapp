@@ -7,7 +7,7 @@ import kachery as ka
 
 ev.init_electron()
 
-ka.set_config(preset='default_readonly')
+ka.set_config(fr='default_readonly')
 
 parser = argparse.ArgumentParser(description='View a ephys or LFP recording')
 parser.add_argument('--path', help='Path to a directory or file representing the recording', required=True)

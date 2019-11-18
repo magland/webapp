@@ -4,7 +4,7 @@ import kachery as ka
 
 kw.init_electron()
 
-ka.set_config(preset='default_readonly')
+ka.set_config(fr='default_readonly')
 
 parser = argparse.ArgumentParser(description='Explore a file or directory on kachery')
 parser.add_argument('--path', help='Path to a directory or file', required=False, default=None)

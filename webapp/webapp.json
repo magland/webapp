@@ -16,5 +16,8 @@
             "name": "timeseries",
             "pyFile": "timeseries.py"
         }
-    ]
+    ],
+    "killCode": {
+        "env": "WEBAPP_KILL_CODE"
+    }
 }

@@ -40,7 +40,7 @@ RUN pip install h5_to_json==0.1.5
 ### Install reactopya
 RUN git clone https://github.com/flatironinstitute/reactopya /src/reactopya \
     && cd /src/reactopya \
-    && git checkout 38f77b35ab3a9fcc190bd8f2f7182b03786615eb
+    && git checkout 21ecbbb3f5c3b0cb4326a53645f0b7c0bcc5e8a1
 WORKDIR /src/reactopya
 RUN pip install -e .
 RUN cd reactopya/reactopya_server && yarn install && yarn build && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf /tmp/* && yarn cache clean
@@ -70,4 +70,4 @@ COPY webapp /webapp
 
 EXPOSE 8080
 
-CMD reactopya-server /webapp/webapp.json --port 8080
+CMD KILL_CODE=$(cat ~/webapp.killcode) reactopya-server /webapp/webapp.json --port 8080
