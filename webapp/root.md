@@ -26,6 +26,12 @@ View raw electrophysiology data via lazy-load. See [ephys-viz](https://github.co
 
 * [paired_kampff.2014_11_25_PAIR_3_0](app/timeseries?path=sha1dir://5426bea8dd11a15c73626bb679fc5a8227bc3d42.paired_kampff.2014_11_25_PAIR_3_0)
 
+## SpikeForest analysis
+
+View the results of a SpikeForest analysis
+
+* [Analysis of Nov. 18th](app/spikeforest?path=sha1://3f0bdafedb3757dc3eddb9d3aeccd890830ac181/analysis.json)
+
 ## Kachery
 
 See [the kachery project](https://github.com/flatironinstitute/kachery)

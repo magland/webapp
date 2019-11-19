@@ -1,10 +1,17 @@
 import os
 import ccm_widgets as cw
+cw.init_electron()
 
-dirname = os.path.dirname(os.path.realpath(__file__))
-path = os.path.join(dirname, 'root.md')
+def main():
+    dirname = os.path.dirname(os.path.realpath(__file__))
+    path = os.path.join(dirname, 'root.md')
 
-X = cw.Markdown(
-    path=path
-)
-X.show()
+    with open(path, 'r') as f:
+        content = f.read()
+
+    X = cw.Markdown(
+        content=content
+    )
+    X.show()
+
+main()

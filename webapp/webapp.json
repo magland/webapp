@@ -15,6 +15,10 @@
         {
             "name": "timeseries",
             "pyFile": "timeseries.py"
+        },
+        {
+            "name": "spikeforest",
+            "pyFile": "spikeforest.py"
         }
     ],
     "killCode": {
